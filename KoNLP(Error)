@@ -1,4 +1,4 @@
-#R에서 KoNLP를 서버에 설치할 때, 오류가 난다면
+#서버(AWS/Google Cloud Platform)의 R에서 KoNLP를 설치할 때, 오류가 난다면
 
 #자바 문제라면 R에서 rJava를 깔고 java가 위치한 경로를 지정
 install.packages("rJava")
