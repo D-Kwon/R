@@ -1,0 +1,36 @@
+#R에서 KoNLP를 서버에 설치할 때, 오류가 난다면
+
+#자바 문제라면 R에서 rJava를 깔고 java가 위치한 경로를 지정
+install.packages("rJava")
+library(rJava)
+Sys.setenv(JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64") #java 경로를 지정한다
+
+#아래와 같은 인코딩 문제라면 
+'''
+Error : .onAttach failed in attachNamespace() for 'KoNLP', details:
+call: if (all((localeToCharset()[1] == c("UTF-8", "CP949", "EUC-KR")) ==
+error: missing value where TRUE/FALSE needed
+'''
+
+#ubuntu에서 인코딩 확인 후,
+ls /usr/share/i18n/charmaps/ 
+
+#목록에 있다면 locale 추가
+sudo locale-gen ko_KR.UTF-8
+sudo locale-gen ko_KR.EUC-KR
+
+
+#다시 R로 돌아와 locale 설정
+
+#locale 설정
+Sys.setlocale("LC_ALL", "ko_KR.UTF-8")
+
+#옵션 변경
+options(encoding = 'UTF-8') 
+Sys.setenv(LANG = "ko_KR.UTF-8")
+
+localeToCharset()  #UTF-8 과 EUC-KR이 나온다
+
+install.packages(“KoNLP”) #설치가 정상적으로 되는 것을 확인할 수 있다
+
+
